@@ -1,6 +1,6 @@
 package com.yc.word.pojo;
 
-public class Course {
+public class CourseMark {
     private int courseID;
     private String courseName;
     private String teacherID;
@@ -10,6 +10,7 @@ public class Course {
     private String courseType;
     private float score;
     private String userName;
+    private float mark;
 
     public int getCourseID() {
         return courseID;
@@ -81,5 +82,13 @@ public class Course {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public float getMark() {
+        return mark;
+    }
+
+    public void setMark(float mark) {
+        this.mark = mark;
     }
 }

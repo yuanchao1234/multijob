@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.word.dao.YuanDao">
+<!--    已选课程-->
+    <select id="getSelectCourse" resultType="com.yc.word.pojo.SelectCourse">
+        select * from selectedcourse where studentID=#{studentID}
+    </select>
+    <select id="getSelectCourse2" resultType="com.yc.word.pojo.Course">
+        select * from course where courseID=#{courseID}
+    </select>
+<!--    学生成绩-->
+    <select id="getScore" resultType="com.yc.word.pojo.SelectCourse">
+        select * from selectedcourse where studentID=#{studentID}
+    </select>
+    <select id="getScore2" resultType="com.yc.word.pojo.CourseMark">
+        select * from course where courseID=#{courseID}
+    </select>
+<!--    学生插入课程-->
+    <insert id="getInsertcourse">
+        insert into selectedcourse (courseID, studentID, mark) VALUES (#{courseID},#{userID},#{mark})
+    </insert>
+    <select id="getInsertcourse2" resultType="com.yc.word.pojo.SelectCourse">
+        select * from selectedcourse where courseID=#{courseID} and studentID=#{userID}
+    </select>
+<!--    获取老师个人信息-->
+    <select id="getTmessage" resultType="com.yc.word.pojo.Login">
+        select * from login where userID=#{userID}
+    </select>
+    <select id="getTmessage2" resultType="com.yc.word.pojo.Teacher">
+        select * from teacher where userID=#{userID}
+    </select>
+<!--    管理员修改密码-->
+    <select id="getArepass" resultType="com.yc.word.pojo.Login">
+        select * from login where userID=#{userID}
+    </select>
+    <update id="getArepass2">
+        UPDATE login SET password=#{password} WHERE userID=#{userID}
+    </update>
+<!--    查看老师信息-->
+    <select id="getAtm" resultType="com.yc.word.pojo.Teacher">
+        SELECT * FROM teacher WHERE userID=#{userID}
+    </select>
+    <select id="getAtm2" resultType="com.yc.word.pojo.Course">
+        SELECT * FROM course WHERE teacherID=#{userID}
+    </select>
+<!--    老师查看评论-->
+    <select id="getTcomment" resultType="com.yc.word.pojo.Tcomment">
+        SELECT * FROM comment WHERE teacherID=#{teacherID}
+    </select>
+    <select id="getTcomment2" resultType="com.yc.word.pojo.Student">
+        SELECT * FROM student WHERE userID=#{studentID}
+    </select>
+</mapper>
