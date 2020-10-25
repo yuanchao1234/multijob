@@ -132,10 +132,13 @@ public class Controller {
         ArrayList atm = new ArrayList();
         List<Teacher> tlist = yuanService.getAtm(userID);
         if(tlist.size()==1){
-            List<Course> clist = yuanService.getAtm2(userID);
-            tlist.get(0).setUserName(clist.get(0).getUserName());
+            List<Login> tlist2 = yuanService.getTmessage(userID);
+            tlist.get(0).setUserName(tlist2.get(0).getUserName());
             atm.add(tlist.get(0));
-            atm.add(clist.get(0));
+            List<Course> clist = yuanService.getAtm2(userID);
+            if(clist.size()>0){ // 表示该老师有课程信息
+                atm.add(clist.get(0));
+            }
             return atm;
         }else {
             return 0;
@@ -156,5 +159,117 @@ public class Controller {
         return list;
     }
 
+    // 老师评分后的最终得分
+    @GetMapping("tscore")
+    public ArrayList tscore(@RequestParam String teacherID, int panduan){
+        ArrayList arr = new ArrayList();
+        List<Course> list1 = yuanService.getTscore(teacherID);
+        List<SelectCourse> list2 = yuanService.getTscore2(String.valueOf(list1.get(0).getCourseID()));
+        for(int i = 0; i<list2.size(); i++){
+            String userID = String.valueOf(list2.get(i).getStudentID());
+            List<StudentTscore> list3 = yuanService.getTscore3(userID);
+            list3.get(0).setCourseID(list1.get(0).getCourseID());
+            list3.get(0).setCourseName(list1.get(0).getCourseName());
+            list3.get(0).setCourseType(list1.get(0).getCourseType());
+            if(panduan==0){
+                if(list2.get(i).getMark()==0.0){
+                    list3.get(0).setMark(list2.get(i).getMark());
+                    arr.add(list3.get(0));
+                }
+            }else {
+                if(list2.get(i).getMark() > 0){
+                    list3.get(0).setMark(list2.get(i).getMark());
+                    arr.add(list3.get(0));
+                }
+            }
+        }
+        return arr;
+    }
+
+    // 管理员add学生
+    @GetMapping("axuehao")
+    public int axuehao(@RequestParam String userName, String userID, String sex, String birthyear, String grade, String college){
+        List<Student> list1 = yuanService.getAxuehao(userID);
+        if(list1.size()==0){
+            int l1 = yuanService.getAxuehao2(userName, userID, sex, birthyear, grade, college);
+            int l2 = yuanService.getAxuehao3(userName, userID);
+            if(l1 == 1&&l2 == 1){
+                return 0;
+            }else {
+                return 2;
+            }
+        }else {
+            return 1;
+        }
+    }
+
+    // 管理员add教师
+    @GetMapping("agonghao")
+    public Object agonghao(@RequestParam String userName, String userID, String sex, String degree, String title, String birthyear, String grade, String college){
+        List<Teacher> list1 = yuanService.getAgonghao(userID);
+        if(list1.size()==0){
+            int l1 = yuanService.getAgonghao2(userID, sex, degree, title, birthyear, grade, college);
+            int l2 = yuanService.getAgonghao3(userName, userID);
+            if(l1 == 1&&l2 == 1){
+                return 0;
+            }else {
+                return 2;
+            }
+        }else {
+            return 1;
+        }
+    }
+
+    // 查看学生信息
+    @GetMapping("stm")
+    public Object stm(@RequestParam String userID){
+        ArrayList arr = new ArrayList();
+        ArrayList arr1 = new ArrayList();
+        List<Smessage> list1 = yuanService.getSmessage(userID);
+        if(list1.size()==0){
+            return 0;
+        }else {
+            arr.add(list1.get(0));
+            List<SelectCourse> list2 = yuanService.getScore(userID);
+            for (int i=0; i<list2.size(); i++){
+                List<StmCourse> list3 = yuanService.getStm(list2.get(i).getCourseID());
+                list3.get(0).setMark(list2.get(i).getMark());
+                arr1.add(list3.get(0));
+            }
+            arr.add(arr1);
+            return arr;
+        }
+    }
+
+    // 给教师添加课程
+    @GetMapping("acourse")
+    public Object acourse(@RequestParam String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score){
+        List<Login> list1 = yuanService.getAcourse(teacherID, userName);
+        if(list1.size()==0){// 表示没有此用户
+            return 0;
+        }else {
+            int i = yuanService.getAcourse2(userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score);
+            return i;
+        }
+    }
+
+    // 学生评论老师
+    @GetMapping("scomment")
+    public Object scomment(@RequestParam String studentID, String teacherID, String text, String id){
+        Repass repass= new Repass();
+        if(Integer.parseInt(id)==1){
+            int num = yuanService.getScomment(studentID, teacherID, text);
+            repass.setAffectedRows(num);
+            return repass;
+        }else{
+            List<Scomment> list1 = yuanService.getScomment2(studentID, teacherID);
+            List<Student> list2 = yuanService.getAxuehao(studentID);
+            for (int i = 0; i<list1.size(); i++){
+                list1.get(i).setUrl(list2.get(0).getUrl());
+                list1.get(i).setUserName(list2.get(0).getUserName());
+            }
+            return list1;
+        }
+    }
 
 }

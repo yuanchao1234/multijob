@@ -105,4 +105,65 @@ public class ServiceImpl implements YuanService {
     public List<Student> getTcomment2(String studentID){
         return  yuanDao.getTcomment2(studentID);
     }
+
+    @Override
+    public List<Course> getTscore(String teacherID){
+        return yuanDao.getTscore(teacherID);
+    }
+    @Override
+    public List<SelectCourse> getTscore2(String courseID){
+        return yuanDao.getTscore2(courseID);
+    }
+    @Override
+    public List<StudentTscore> getTscore3(String userID){
+        return yuanDao.getTscore3(userID);
+    }
+
+    @Override
+    public List<Student> getAxuehao(String userID){
+        return yuanDao.getAxuehao(userID);
+    }
+    @Override
+    public int getAxuehao2(String userName, String userID, String sex, String birthyear, String grade, String college){
+        return yuanDao.getAxuehao2(userName, userID, sex, birthyear, grade, college);
+    }
+    @Override
+    public int getAxuehao3(String userName, String userID){
+        return yuanDao.getAxuehao3(userName,userID);
+    }
+
+    @Override
+    public List<Teacher> getAgonghao(String userID){
+        return yuanDao.getAgonghao(userID);
+    }
+    @Override
+    public int getAgonghao2(String userID, String sex, String degree, String title, String birthyear, String grade, String college){
+        return yuanDao.getAgonghao2(userID, sex, degree, title, birthyear, grade, college);
+    }
+    @Override
+    public int getAgonghao3(String userName, String userID){
+        return yuanDao.getAgonghao3(userName, userID);
+    }
+    @Override
+    public List<StmCourse> getStm(int courseID){
+        return yuanDao.getStm(courseID);
+    }
+
+    @Override
+    public List<Login> getAcourse(String teacherID, String userName){
+        return yuanDao.getAcourse(teacherID, userName);
+    }
+    @Override
+    public int getAcourse2(String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score){
+        return yuanDao.getAcourse2(userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score);
+    }
+
+    @Override
+    public int getScomment(String studentID, String teacherID, String text){
+        return yuanDao.getScomment(studentID, teacherID, text);
+    }
+    @Override
+    public List<Scomment> getScomment2(String studentID, String teacherID){
+        return yuanDao.getScomment2(studentID, teacherID);
+    }
 }

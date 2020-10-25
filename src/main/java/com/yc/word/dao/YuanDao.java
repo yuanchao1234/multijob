@@ -35,4 +35,24 @@ public interface YuanDao {
     List<Tcomment> getTcomment(String teacherID);
     List<Student> getTcomment2(String studentID);
 
+    List<Course> getTscore(String teacherID);
+    List<SelectCourse> getTscore2(String courseID);
+    List<StudentTscore> getTscore3(String userID);
+
+    List<Student> getAxuehao(String userID);
+    int getAxuehao2(String userName, String userID, String sex, String birthyear, String grade, String college);
+    int getAxuehao3(String userName, String userID);
+
+    List<Teacher> getAgonghao(String userID);
+    int getAgonghao2(String userID, String sex, String degree, String title, String birthyear, String grade, String college);
+    int getAgonghao3(String userName, String userID);
+
+    List<StmCourse> getStm(int courseID);
+
+    List<Login> getAcourse(String teacherID, String userName);
+    int getAcourse2(String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score);
+
+    int getScomment(String studentID, String teacherID, String text);
+    List<Scomment> getScomment2(String studentID, String teacherID);
+
 }

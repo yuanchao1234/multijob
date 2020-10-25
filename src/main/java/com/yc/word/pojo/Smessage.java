@@ -3,11 +3,12 @@ package com.yc.word.pojo;
 public class Smessage {
     private String userID;
     private String sex;
+    private int birthyear;
+    private int grade;
     private String college;
     private String userName;
     private String url;
-    private int birthyear;
-    private int grade;
+
 
     public String getUserID() {
         return userID;

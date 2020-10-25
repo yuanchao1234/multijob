@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.word.dao.YuanDao">
+<!--    老师评分后的最终得分-->
+    <select id="getTscore" resultType="com.yc.word.pojo.Course">
+        select * from course where teacherID=#{teacherID}
+    </select>
+    <select id="getTscore2" resultType="com.yc.word.pojo.SelectCourse">
+        select * from selectedcourse where courseID=#{courseID}
+    </select>
+    <select id="getTscore3" resultType="com.yc.word.pojo.StudentTscore">
+        select * from student where userID=#{userID}
+    </select>
+<!--    管理员add学生-->
+    <select id="getAxuehao" resultType="com.yc.word.pojo.Student">
+        select * from student where userID=#{userID}
+    </select>
+    <insert id="getAxuehao2">
+        insert into student (userID, sex, birthyear, grade, college,userName) VALUES (#{userID},#{sex},#{birthyear},#{grade},#{college},#{userName})
+    </insert>
+    <insert id="getAxuehao3">
+        insert into login (userID, userName, password, role) VALUES (#{userID},#{userName},123,1)
+    </insert>
+<!--    管理员add教师-->
+    <select id="getAgonghao" resultType="com.yc.word.pojo.Teacher">
+        select * from teacher where userID=#{userID}
+    </select>
+    <insert id="getAgonghao2">
+        insert into teacher (userID, sex, birthyear, degree, title,  grade, college) VALUES (#{userID}, #{sex}, #{birthyear}, #{degree}, #{title}, #{grade}, #{college})
+    </insert>
+    <insert id="getAgonghao3">
+        insert into login (userID, userName, password, role) VALUES (#{userID},#{userName},123,2)
+    </insert>
+<!--    查看学生信息-->
+    <select id="getStm" resultType="com.yc.word.pojo.StmCourse">
+        select * from course where courseID=#{courseID}
+    </select>
+<!--    给教师添加课程-->
+    <select id="getAcourse" resultType="com.yc.word.pojo.Login">
+        select * from login where userID=#{teacherID} and userName=#{userName}
+    </select>
+    <insert id="getAcourse2">
+        insert into course (userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score) VALUES (#{userName}, #{teacherID}, #{courseName}, #{courseTime}, #{classRoom}, #{courseWeek}, #{courseType}, #{score})
+    </insert>
+<!--    学生评论老师-->
+    <insert id="getScomment">
+        insert into comment (studentID, teacherID, text) VALUES (#{studentID}, #{teacherID}, #{text})
+    </insert>
+    <select id="getScomment2" resultType="com.yc.word.pojo.Scomment">
+        SELECT * FROM comment WHERE teacherID=#{teacherID} and studentID=#{studentID}
+    </select>
+</mapper>

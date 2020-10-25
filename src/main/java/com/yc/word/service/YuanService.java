@@ -50,4 +50,31 @@ public interface YuanService {
     // 老师查看评论
     List<Tcomment> getTcomment(String teacherID);
     List<Student> getTcomment2(String studentID);
+
+    // 老师评分后的最终得分
+    List<Course> getTscore(String teacherID);
+    List<SelectCourse> getTscore2(String courseID);
+    List<StudentTscore> getTscore3(String userID);
+
+    // 管理员add学生
+    List<Student> getAxuehao(String userID);
+    int getAxuehao2(String userName, String userID, String sex, String birthyear, String grade, String college);
+    int getAxuehao3(String userName, String userID);
+
+    // 管理员add教师
+    List<Teacher> getAgonghao(String userID);
+    int getAgonghao2(String userID, String sex, String degree, String title, String birthyear, String grade, String college);
+    int getAgonghao3(String userName, String userID);
+
+    // 查看学生信息
+    List<StmCourse> getStm(int courseID);
+
+    // 给教师添加课程
+    List<Login> getAcourse(String teacherID, String userName);
+    int getAcourse2(String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score);
+
+    // 学生评论老师
+    int getScomment(String studentID, String teacherID, String text);
+    List<Scomment> getScomment2(String studentID, String teacherID);
+
 }
