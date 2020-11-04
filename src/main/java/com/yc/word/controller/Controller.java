@@ -272,4 +272,42 @@ public class Controller {
         }
     }
 
+    // 删除学生
+    @GetMapping("delSt")
+    public Object delSt(@RequestParam String studentID){
+        List<Login> list = yuanService.getArepass(studentID);
+        if(list.size()!=0){
+            int num1 =  yuanService.delDelSt1(studentID);
+            int num2 =  yuanService.delDelSt2(studentID);
+            int num3 =  yuanService.delDelSt3(studentID);
+            int num4 =  yuanService.delDelSt4(studentID);
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+//    // 删除教工
+//    @GetMapping("DelTt")
+//    public Object DelTt(@RequestParam String teacherID){
+//        List<Login> list = yuanService.getArepass(teacherID);
+//        if(list.size()!=0){
+//            int num1 =  yuanService.delDelSt1(teacherID);
+//            int num2 = yuanService.delDelTt1(teacherID);
+//            return 1;
+//        }else {
+//            return 0;
+//        }
+//    }
+
+    // 师生分布
+    @GetMapping("distribution")
+    public Object distribution(){
+        ArrayList arr = new ArrayList();
+        List<Login> list1 =  yuanService.getDistribution("1");// 学生
+        List<Login> list2 =  yuanService.getDistribution("2");// 学生
+        arr.add(list1);
+        arr.add(list2);
+        return  arr;
+    }
 }

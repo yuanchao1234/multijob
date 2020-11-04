@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.word.dao.YuanDao">
+    <!--    删除学生-->
+    <delete id="delDelSt1">
+        delete from login where userID=#{studentID}
+    </delete>
+    <delete id="delDelSt2">
+        delete from student where userID=#{studentID}
+    </delete>
+    <delete id="delDelSt3">
+        delete from selectedcourse where studentID=#{studentID}
+    </delete>
+    <delete id="delDelSt4">
+        delete from comment where studentID=#{studentID}
+    </delete>
+<!--    删除教工-->
+
+<!--    师生分布-->
+    <select id="getDistribution" resultType="com.yc.word.pojo.Login">
+        select * from login where role=#{role}
+    </select>
+</mapper>

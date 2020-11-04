@@ -166,4 +166,26 @@ public class ServiceImpl implements YuanService {
     public List<Scomment> getScomment2(String studentID, String teacherID){
         return yuanDao.getScomment2(studentID, teacherID);
     }
+
+    @Override
+    public int delDelSt1(String studentID){
+        return yuanDao.delDelSt1(studentID);
+    }
+    @Override
+    public int delDelSt2(String studentID){
+        return yuanDao.delDelSt2(studentID);
+    }
+    @Override
+    public int delDelSt3(String studentID){
+        return yuanDao.delDelSt3(studentID);
+    }
+    @Override
+    public int delDelSt4(String studentID){
+        return yuanDao.delDelSt4(studentID);
+    }
+
+    @Override
+    public List<Login> getDistribution(String role){
+        return yuanDao.getDistribution(role);
+    }
 }

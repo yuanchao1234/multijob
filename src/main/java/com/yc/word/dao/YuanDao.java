@@ -55,4 +55,11 @@ public interface YuanDao {
     int getScomment(String studentID, String teacherID, String text);
     List<Scomment> getScomment2(String studentID, String teacherID);
 
+    int delDelSt1(String studentID);
+    int delDelSt2(String studentID);
+    int delDelSt3(String studentID);
+    int delDelSt4(String studentID);
+
+    List<Login> getDistribution(String role);
+
 }
