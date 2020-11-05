@@ -25,7 +25,7 @@ public class Controller {
 
     // 获取学生个人信息
     @GetMapping("smessage")
-    public List<Smessage> smessage(@RequestParam String userID){
+    public List<Student> smessage(@RequestParam String userID){
         return yuanService.getSmessage(userID);
     }
 
@@ -229,7 +229,7 @@ public class Controller {
     public Object stm(@RequestParam String userID){
         ArrayList arr = new ArrayList();
         ArrayList arr1 = new ArrayList();
-        List<Smessage> list1 = yuanService.getSmessage(userID);
+        List<Student> list1 = yuanService.getSmessage(userID);
         // 判断该学生存不存在
         if(list1.size()==0){
             return 0;

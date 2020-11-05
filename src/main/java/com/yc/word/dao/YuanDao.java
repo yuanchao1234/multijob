@@ -11,7 +11,7 @@ public interface YuanDao {
     List<Login> getLogin(String userID, String password, String role);
 
     // 获取学生个人信息
-    List<Smessage> getSmessage(String userID);
+    List<Student> getSmessage(String userID);
 
     // 修改密码
     int getRepass(String userID, String password);

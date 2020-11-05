@@ -9,7 +9,7 @@
         select * from login where userID=#{userID} and password=#{password} and role=#{role}
     </select>
 <!--    获取学生个人信息-->
-    <select id="getSmessage" resultType="com.yc.word.pojo.Smessage">
+    <select id="getSmessage" resultType="com.yc.word.pojo.Student">
         select * from student where userID=#{userID}
     </select>
 <!--    修改密码-->

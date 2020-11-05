@@ -19,7 +19,7 @@ public class ServiceImpl implements YuanService {
     }
 
     @Override
-    public List<Smessage> getSmessage(String userID){
+    public List<Student> getSmessage(String userID){
         return yuanDao.getSmessage(userID);
     }
 
