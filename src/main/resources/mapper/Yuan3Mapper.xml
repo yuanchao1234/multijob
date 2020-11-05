@@ -18,7 +18,18 @@
         delete from comment where studentID=#{studentID}
     </delete>
 <!--    删除教工-->
-
+    <delete id="delDelTt1">
+        delete from selectedcourse where courseID=#{courseID}
+    </delete>
+    <delete id="delDelTt2">
+        delete from comment where teacherID=#{teacherID}
+    </delete>
+    <delete id="delDelTt3">
+        delete from teacher where userID=#{teacherID}
+    </delete>
+    <delete id="delDelTt4">
+        delete from course where teacherID=#{teacherID}
+    </delete>
 <!--    师生分布-->
     <select id="getDistribution" resultType="com.yc.word.pojo.Login">
         select * from login where role=#{role}

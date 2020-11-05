@@ -188,6 +188,24 @@ public class ServiceImpl implements YuanService {
         return yuanDao.delDelSt4(studentID);
     }
 
+    // 删除教工
+    @Override
+    public int delDelTt1(String courseID){
+        return yuanDao.delDelTt1(courseID);
+    }
+    @Override
+    public int delDelTt2(String teacherID){
+        return yuanDao.delDelTt2(teacherID);
+    }
+    @Override
+    public int delDelTt3(String teacherID){
+        return yuanDao.delDelTt3(teacherID);
+    }
+    @Override
+    public int delDelTt4(String teacherID){
+        return yuanDao.delDelTt4(teacherID);
+    }
+
     @Override
     public List<Login> getDistribution(String role){
         return yuanDao.getDistribution(role);

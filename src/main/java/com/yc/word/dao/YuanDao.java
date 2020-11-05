@@ -86,6 +86,12 @@ public interface YuanDao {
     int delDelSt3(String studentID);
     int delDelSt4(String studentID);
 
+    // 删除教工
+    int delDelTt1(String courseID);
+    int delDelTt2(String teacherID);
+    int delDelTt3(String teacherID);
+    int delDelTt4(String teacherID);
+
     // 师生分布
     List<Login> getDistribution(String role);
 

@@ -131,11 +131,14 @@ public class Controller {
     public Object atm(@RequestParam String userID){
         ArrayList atm = new ArrayList();
         ArrayList atm2 = new ArrayList();
+        // 查teacher表，为了查看盖老师的课程信息
         List<Teacher> tlist = yuanService.getAtm(userID);
         if(tlist.size()==1){
+            // 查login表,为了获取名字
             List<Login> tlist2 = yuanService.getTmessage(userID);
             tlist.get(0).setUserName(tlist2.get(0).getUserName());
             atm.add(tlist.get(0));
+            // 查course，为了查看该老师课程信息
             List<Course> clist = yuanService.getAtm2(userID);
             if(clist.size()>0){ // 表示该老师有课程信息
                 for(int i = 0; i<clist.size(); i++){
@@ -193,9 +196,12 @@ public class Controller {
     // 管理员add学生
     @GetMapping("axuehao")
     public int axuehao(@RequestParam String userName, String userID, String sex, String birthyear, String grade, String college){
+        // 查student表
         List<Student> list1 = yuanService.getAxuehao(userID);
         if(list1.size()==0){
+            // 插入到student表
             int l1 = yuanService.getAxuehao2(userName, userID, sex, birthyear, grade, college);
+            // 插入到login表
             int l2 = yuanService.getAxuehao3(userName, userID);
             if(l1 == 1&&l2 == 1){
                 return 0;
@@ -210,9 +216,12 @@ public class Controller {
     // 管理员add教师
     @GetMapping("agonghao")
     public Object agonghao(@RequestParam String userName, String userID, String sex, String degree, String title, String birthyear, String grade, String college){
+        // 查teacher表
         List<Teacher> list1 = yuanService.getAgonghao(userID);
         if(list1.size()==0){
+            // 插入到teacher表
             int l1 = yuanService.getAgonghao2(userID, sex, degree, title, birthyear, grade, college);
+            // 插入到login表
             int l2 = yuanService.getAgonghao3(userName, userID);
             if(l1 == 1&&l2 == 1){
                 return 0;
@@ -229,14 +238,17 @@ public class Controller {
     public Object stm(@RequestParam String userID){
         ArrayList arr = new ArrayList();
         ArrayList arr1 = new ArrayList();
+        // 查student表，获取学生学生信息
         List<Student> list1 = yuanService.getSmessage(userID);
         // 判断该学生存不存在
         if(list1.size()==0){
             return 0;
         }else {
             arr.add(list1.get(0));
+            // 查selectedcourse表，为了获取
             List<SelectCourse> list2 = yuanService.getScore(userID);
             for (int i=0; i<list2.size(); i++){
+                // 查course表，获取学生课程信息
                 List<StmCourse> list3 = yuanService.getStm(list2.get(i).getCourseID());
                 list3.get(0).setMark(list2.get(i).getMark());
                 arr1.add(list3.get(0));
@@ -255,9 +267,11 @@ public class Controller {
         if(list1.size()==0){
             return 0;
         }else {
+            // 查course表,看看此课程是否已添加
             List<Course> list2 = yuanService.getAcourse3(courseName, teacherID);
             // 判断此课程是否已添加
             if(list2.size()==0){
+                // 插入到course表
                 int i = yuanService.getAcourse2(userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score);
                 return i;
             }else {
@@ -289,11 +303,16 @@ public class Controller {
     // 删除学生
     @GetMapping("delSt")
     public Object delSt(@RequestParam String studentID){
+        // 查login表
         List<Login> list = yuanService.getArepass(studentID);
         if(list.size()!=0){
+            // 删除login的数据
             int num1 =  yuanService.delDelSt1(studentID);
+            // 删除student的数据
             int num2 =  yuanService.delDelSt2(studentID);
+            // 删除selectedcourse的数据
             int num3 =  yuanService.delDelSt3(studentID);
+            // 删除comment的数据
             int num4 =  yuanService.delDelSt4(studentID);
             return 1;
         }else {
@@ -301,23 +320,38 @@ public class Controller {
         }
     }
 
-//    // 删除教工
-//    @GetMapping("DelTt")
-//    public Object DelTt(@RequestParam String teacherID){
-//        List<Login> list = yuanService.getArepass(teacherID);
-//        if(list.size()!=0){
-//            int num1 =  yuanService.delDelSt1(teacherID);
-//            int num2 = yuanService.delDelTt1(teacherID);
-//            return 1;
-//        }else {
-//            return 0;
-//        }
-//    }
+    // 删除教工
+    @GetMapping("DelTt")
+    public Object DelTt(@RequestParam String teacherID){
+        // 查login表
+        List<Login> list = yuanService.getArepass(teacherID);
+        if(list.size()!=0){
+            // 查course，为了查看该老师课程信息
+            List<Course> clist = yuanService.getAtm2(teacherID);
+            for(int i=0; i<clist.size(); i++){
+                String s = String.valueOf(clist.get(i).getCourseID());
+                // 删除该老师selectedcourse表的相关课程
+                int num1 = yuanService.delDelTt1(s);
+            }
+            // 删除comment表中，对应的老师的评论
+            int num2 = yuanService.delDelTt2(teacherID);
+            // 删除teacher表中
+            int num3 = yuanService.delDelTt3(teacherID);
+            // 删除course表中
+            int num4 = yuanService.delDelTt4(teacherID);
+            // 删除login表中，对应的老师的登录信息
+            int num5 =  yuanService.delDelSt1(teacherID);
+            return 1;
+        }else {
+            return 0;
+        }
+    }
 
     // 师生分布
     @GetMapping("distribution")
     public Object distribution(){
         ArrayList arr = new ArrayList();
+        // 查login表
         List<Login> list1 =  yuanService.getDistribution("1");// 学生
         List<Login> list2 =  yuanService.getDistribution("2");// 学生
         arr.add(list1);
