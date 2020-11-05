@@ -51,6 +51,7 @@ public interface YuanDao {
 
     List<Login> getAcourse(String teacherID, String userName);
     int getAcourse2(String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score);
+    List<Course> getAcourse3(String courseName, String teacherID);
 
     int getScomment(String studentID, String teacherID, String text);
     List<Scomment> getScomment2(String studentID, String teacherID);

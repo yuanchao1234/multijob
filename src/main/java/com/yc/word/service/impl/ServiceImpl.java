@@ -157,6 +157,10 @@ public class ServiceImpl implements YuanService {
     public int getAcourse2(String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score){
         return yuanDao.getAcourse2(userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score);
     }
+    @Override
+    public List<Course> getAcourse3(String courseName, String teacherID){
+        return yuanDao.getAcourse3(courseName, teacherID);
+    }
 
     @Override
     public int getScomment(String studentID, String teacherID, String text){

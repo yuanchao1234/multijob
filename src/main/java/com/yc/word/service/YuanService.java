@@ -71,6 +71,7 @@ public interface YuanService {
 
     // 给教师添加课程
     List<Login> getAcourse(String teacherID, String userName);
+    List<Course> getAcourse3(String courseName, String teacherID);
     int getAcourse2(String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score);
 
     // 学生评论老师

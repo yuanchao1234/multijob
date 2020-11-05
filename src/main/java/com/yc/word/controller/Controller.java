@@ -130,6 +130,7 @@ public class Controller {
     @GetMapping("atm")
     public Object atm(@RequestParam String userID){
         ArrayList atm = new ArrayList();
+        ArrayList atm2 = new ArrayList();
         List<Teacher> tlist = yuanService.getAtm(userID);
         if(tlist.size()==1){
             List<Login> tlist2 = yuanService.getTmessage(userID);
@@ -137,8 +138,11 @@ public class Controller {
             atm.add(tlist.get(0));
             List<Course> clist = yuanService.getAtm2(userID);
             if(clist.size()>0){ // 表示该老师有课程信息
-                atm.add(clist.get(0));
+                for(int i = 0; i<clist.size(); i++){
+                    atm2.add(clist.get(i));
+                }
             }
+            atm.add(atm2);
             return atm;
         }else {
             return 0;
@@ -226,6 +230,7 @@ public class Controller {
         ArrayList arr = new ArrayList();
         ArrayList arr1 = new ArrayList();
         List<Smessage> list1 = yuanService.getSmessage(userID);
+        // 判断该学生存不存在
         if(list1.size()==0){
             return 0;
         }else {
@@ -244,12 +249,21 @@ public class Controller {
     // 给教师添加课程
     @GetMapping("acourse")
     public Object acourse(@RequestParam String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score){
+        // 查login表，看看有没有这个用户
         List<Login> list1 = yuanService.getAcourse(teacherID, userName);
-        if(list1.size()==0){// 表示没有此用户
+        // 判断没有此用户
+        if(list1.size()==0){
             return 0;
         }else {
-            int i = yuanService.getAcourse2(userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score);
-            return i;
+            List<Course> list2 = yuanService.getAcourse3(courseName, teacherID);
+            // 判断此课程是否已添加
+            if(list2.size()==0){
+                int i = yuanService.getAcourse2(userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score);
+                return i;
+            }else {
+                return 2;
+            }
+
         }
     }
 

@@ -45,6 +45,9 @@
     <insert id="getAcourse2">
         insert into course (userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score) VALUES (#{userName}, #{teacherID}, #{courseName}, #{courseTime}, #{classRoom}, #{courseWeek}, #{courseType}, #{score})
     </insert>
+    <select id="getAcourse3" resultType="com.yc.word.pojo.Course">
+        select * from course where teacherID=#{teacherID} and courseName=#{courseName}
+    </select>
 <!--    学生评论老师-->
     <insert id="getScomment">
         insert into comment (studentID, teacherID, text) VALUES (#{studentID}, #{teacherID}, #{text})
