@@ -353,9 +353,9 @@ public class Controller {
         ArrayList arr = new ArrayList();
         // 查login表
         List<Login> list1 =  yuanService.getDistribution("1");// 学生
-        List<Login> list2 =  yuanService.getDistribution("2");// 学生
-        arr.add(list1);
-        arr.add(list2);
-        return  arr;
+        List<Login> list2 =  yuanService.getDistribution("2");// 教师
+        arr.add(list1.size());// 学生
+        arr.add(list2.size());// 教师
+        return arr;
     }
 }
