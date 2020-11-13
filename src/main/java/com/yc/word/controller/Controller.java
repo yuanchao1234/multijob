@@ -314,6 +314,7 @@ public class Controller {
     // 删除学生
     @GetMapping("delSt")
     public Object delSt(@RequestParam String studentID){
+        Repass repass= new Repass();
         // 查login表
         List<Login> list = yuanService.getArepass(studentID);
         if(list.size()!=0){
@@ -325,15 +326,18 @@ public class Controller {
             int num3 =  yuanService.delDelSt3(studentID);
             // 删除comment的数据
             int num4 =  yuanService.delDelSt4(studentID);
-            return 1;
+            repass.setAffectedRows(1);
+            return repass;
         }else {
-            return 0;
+            repass.setAffectedRows(0);
+            return repass;
         }
     }
 
     // 删除教工
     @GetMapping("DelTt")
     public Object DelTt(@RequestParam String teacherID){
+        Repass repass= new Repass();
         // 查login表
         List<Login> list = yuanService.getArepass(teacherID);
         if(list.size()!=0){
@@ -352,9 +356,11 @@ public class Controller {
             int num4 = yuanService.delDelTt4(teacherID);
             // 删除login表中，对应的老师的登录信息
             int num5 =  yuanService.delDelSt1(teacherID);
-            return 1;
+            repass.setAffectedRows(1);
+            return repass;
         }else {
-            return 0;
+            repass.setAffectedRows(0);
+            return repass;
         }
     }
 
