@@ -195,7 +195,8 @@ public class Controller {
 
     // 管理员add学生
     @GetMapping("axuehao")
-    public int axuehao(@RequestParam String userName, String userID, String sex, String birthyear, String grade, String college){
+    public Object axuehao(@RequestParam String userName, String userID, String sex, String birthyear, String grade, String college){
+        Repass repass= new Repass();
         // 查student表
         List<Student> list1 = yuanService.getAxuehao(userID);
         if(list1.size()==0){
@@ -204,18 +205,22 @@ public class Controller {
             // 插入到login表
             int l2 = yuanService.getAxuehao3(userName, userID);
             if(l1 == 1&&l2 == 1){
-                return 0;
+                repass.setAffectedRows(1);
+                return repass;
             }else {
-                return 2;
+                repass.setAffectedRows(2);
+                return repass;
             }
         }else {
-            return 1;
+            repass.setAffectedRows(0);
+            return repass;
         }
     }
 
     // 管理员add教师
     @GetMapping("agonghao")
     public Object agonghao(@RequestParam String userName, String userID, String sex, String degree, String title, String birthyear, String grade, String college){
+        Repass repass= new Repass();
         // 查teacher表
         List<Teacher> list1 = yuanService.getAgonghao(userID);
         if(list1.size()==0){
@@ -224,12 +229,15 @@ public class Controller {
             // 插入到login表
             int l2 = yuanService.getAgonghao3(userName, userID);
             if(l1 == 1&&l2 == 1){
-                return 0;
+                repass.setAffectedRows(1);
+                return repass;
             }else {
-                return 2;
+                repass.setAffectedRows(2);
+                return repass;
             }
         }else {
-            return 1;
+            repass.setAffectedRows(0);
+            return repass;
         }
     }
 
@@ -261,11 +269,13 @@ public class Controller {
     // 给教师添加课程
     @GetMapping("acourse")
     public Object acourse(@RequestParam String userName, String teacherID, String courseName, String courseTime, String classRoom, String courseWeek, String courseType, String score){
+        Repass repass= new Repass();
         // 查login表，看看有没有这个用户
         List<Login> list1 = yuanService.getAcourse(teacherID, userName);
         // 判断没有此用户
         if(list1.size()==0){
-            return 0;
+            repass.setAffectedRows(0);
+            return repass;
         }else {
             // 查course表,看看此课程是否已添加
             List<Course> list2 = yuanService.getAcourse3(courseName, teacherID);
@@ -273,11 +283,12 @@ public class Controller {
             if(list2.size()==0){
                 // 插入到course表
                 int i = yuanService.getAcourse2(userName, teacherID, courseName,courseTime, classRoom , courseWeek, courseType, score);
-                return i;
+                repass.setAffectedRows(i);
+                return repass;
             }else {
-                return 2;
+                repass.setAffectedRows(2);
+                return repass;
             }
-
         }
     }
 
