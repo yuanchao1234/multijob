@@ -296,12 +296,15 @@ public class Controller {
     @GetMapping("scomment")
     public Object scomment(@RequestParam String studentID, String teacherID, String text, String id){
         Repass repass= new Repass();
-        if(Integer.parseInt(id)==1){
+        if(Integer.parseInt(id)==1){// 1表示插入
+            // 将评论插入到comment表
             int num = yuanService.getScomment(studentID, teacherID, text);
             repass.setAffectedRows(num);
             return repass;
         }else{
+            // 查询comment表
             List<Scomment> list1 = yuanService.getScomment2(studentID, teacherID);
+            // 查询Student表
             List<Student> list2 = yuanService.getAxuehao(studentID);
             for (int i = 0; i<list1.size(); i++){
                 list1.get(i).setUrl(list2.get(0).getUrl());
